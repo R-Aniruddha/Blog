@@ -1,9 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import sanityClient from '../client'
+import Hero from './Hero'
+import PostsCard from './PostsCard'
+import { makeStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
+//import Box from '@material-ui/core/Box'
+import Container from '@material-ui/core/Container'
+import Grid from '@material-ui/core/Grid'
+
+const useStyles = makeStyles((theme) => ({
+  blogsContainer: {
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
+  },
+  blogTitle: {
+    fontWeight: 800,
+    paddingBottom: theme.spacing(3),
+  },
+}))
 
 export default function Home() {
   const [postsList, setPostsList] = useState(null)
+
+  const classes = useStyles()
 
   useEffect(() => {
     sanityClient
@@ -16,44 +35,51 @@ export default function Home() {
                 _id,
                 url
               }
-            }
+            },
+            body,
+            "name": author->name,
+            "authorImage": author->image,
+            publishedAt,
           }`
       )
-      .then((data) => setPostsList(data))
+      .then((data) => {
+        setPostsList(data)
+        console.log(data)
+      })
       .catch(console.error)
   }, [])
 
   return (
-    <div className='bg-green-100 min-h-screen p-12'>
-      <div className='container mx-auto'>
-        <h2 className='text-5xl flex justify-center cursive'>Blog Posts</h2>
-        <h3 className='text-lg text-gray-600 flex justify-center mb-12'>
-          Welcome to my blog posts page!
-        </h3>
-
-        <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8'>
+    <div>
+      <Hero />
+      <Container maxWidth='lg' className={classes.blogsContainer}>
+        <Typography variant='h4' className={classes.blogTitle}>
+          Articles
+        </Typography>
+        <Grid container spacing={3}>
           {postsList &&
             postsList.map((post, index) => (
-              <Link to={'/' + post.slug.current} key={post.slug.current}>
-                <span
-                  className='block h-64 relative rounded shadow leading-snug bg-white border-l-8 border-green-400'
-                  key={index}
-                >
-                  <img
-                    className='w-full h-full rounded-r object-cover absolute'
-                    src={post.mainImage.asset.url}
-                    alt=''
-                  />
-                  <span className='block relative h-full flex justify-end items-end pr-4 pb-4'>
-                    <h2 className='text-gray-800 text-lg font-bold px-3 py-4 bg-red-700 text-red-100 bg-opacity-75 rounded'>
-                      {post.title}
-                    </h2>
-                  </span>
-                </span>
-              </Link>
+              <Grid item xs={12} sm={6} md={4}>
+                <PostsCard key={index} post={post} />
+              </Grid>
             ))}
-        </div>
-      </div>
+        </Grid>
+      </Container>
     </div>
   )
 }
+
+/*
+
+                <Link to={'/' + post.slug.current} key={post.slug.current}>
+                  <span className='' key={index}>
+                    <img className='' src={post.mainImage.asset.url} alt='' />
+                    <span className=''>
+                      <h2 className=''>{post.title}</h2>
+                    </span>
+                  </span>
+                </Link>
+
+
+
+*/

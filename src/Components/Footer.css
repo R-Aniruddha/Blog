@@ -1,0 +1,16 @@
+.social-icon {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  margin: auto !important;
+}
+
+.social-icon:hover {
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+p {
+  margin: 1rem auto 0 auto;
+}

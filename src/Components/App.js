@@ -20,8 +20,8 @@ function App() {
 
   return (
     <div className='App'>
-      <Header />
       <BrowserRouter>
+        <Header />
         <div className={classes.container}>
           <Route component={Home} path={['/', '/home']} exact />
           <Route component={Post} path='/:slug' />

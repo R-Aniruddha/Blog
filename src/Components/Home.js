@@ -44,7 +44,6 @@ export default function Home() {
       )
       .then((data) => {
         setPostsList(data)
-        console.log(data)
       })
       .catch(console.error)
   }, [])
@@ -59,7 +58,7 @@ export default function Home() {
         <Grid container spacing={3}>
           {postsList &&
             postsList.map((post, index) => (
-              <Grid item xs={12} sm={6} md={4}>
+              <Grid item xs={12} sm={6} md={4} key={index}>
                 <PostsCard key={index} post={post} />
               </Grid>
             ))}
@@ -68,18 +67,3 @@ export default function Home() {
     </div>
   )
 }
-
-/*
-
-                <Link to={'/' + post.slug.current} key={post.slug.current}>
-                  <span className='' key={index}>
-                    <img className='' src={post.mainImage.asset.url} alt='' />
-                    <span className=''>
-                      <h2 className=''>{post.title}</h2>
-                    </span>
-                  </span>
-                </Link>
-
-
-
-*/

@@ -63,10 +63,14 @@ export default function Post() {
       .catch(console.error)
   }, [slug])
 
-  if (!postData) return <div>Loading...</div>
+  let date
 
-  const date = postData.publishedAt.toString().substring(0, 10)
-
+  if (slug === 'home') return null
+  if (!postData) {
+    return <div>Loading...</div>
+  } else {
+    if (postData) date = postData.publishedAt.toString().substring(0, 10)
+  }
   return (
     <div className={classes.postContainer}>
       <div>

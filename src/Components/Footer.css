@@ -6,7 +6,7 @@
   margin: auto !important;
 }
 
-.social-icon:hover {
+.social-icon > a > img:hover {
   -webkit-transform: scale(1.2);
   transform: scale(1.2);
 }

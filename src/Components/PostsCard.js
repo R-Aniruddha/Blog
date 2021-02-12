@@ -58,7 +58,10 @@ const PostsCard = ({ post }) => {
       </CardActionArea>
       <CardActions className={classes.cardActions}>
         <Box className={classes.author}>
-          <Avatar src={urlFor(post.authorImage).width(100).url()} />
+          <Avatar
+            alt='Author Image'
+            src={urlFor(post.authorImage).width(100).url()}
+          />
           <Box ml={2}>
             <Typography variant='subtitle2' component='p'>
               {post.name}

@@ -18,7 +18,7 @@ function urlFor(source) {
 const useStyles = makeStyles((theme) => ({
   postContainer: {
     backgroundColor: 'whitesmoke',
-    padding: '1rem',
+    padding: '2rem 3.5rem',
     width: '60%',
     margin: 'auto',
     marginTop: '1rem',
@@ -81,7 +81,10 @@ export default function Post() {
       </div>
       <div>
         <Box className={classes.author}>
-          <Avatar src={urlFor(postData.authorImage).width(100).url()} />
+          <Avatar
+            alt='Author Image'
+            src={urlFor(postData.authorImage).width(100).url()}
+          />
           <Box ml={2}>
             <Typography variant='subtitle2' component='p'>
               {postData.name}

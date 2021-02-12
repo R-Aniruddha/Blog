@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '1rem',
     marginBottom: '0',
   },
+  iconsContainer: {
+    margin: 'auto',
+  },
 }))
 
 export default function Footer() {
@@ -23,7 +26,7 @@ export default function Footer() {
   return (
     <div className={classes.footerContainer} color='background'>
       <Grid container>
-        <Grid item xs={10} sm={6} lg={4} className='social-icon'>
+        <Grid item xs={10} sm={6} lg={4} className={classes.iconsContainer}>
           <Grid container>
             <Grid item xs={2} sm={1} lg={1} className='social-icon'>
               <Tooltip

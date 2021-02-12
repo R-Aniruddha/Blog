@@ -42,7 +42,7 @@ const PostsCard = ({ post }) => {
     <Card className={classes.card}>
       <CardActionArea>
         <Link to={'/' + post.slug.current} key={post.slug.current}>
-          <figure>
+          <figure className='cardImageContainer'>
             <CardMedia
               className='cardImage'
               image={post.mainImage.asset.url}

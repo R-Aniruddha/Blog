@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import Avatar from '@material-ui/core/Avatar'
 import { Divider } from '@material-ui/core'
+import './Post.css'
 
 const builder = imageUrlBuilder(sanityClient)
 function urlFor(source) {

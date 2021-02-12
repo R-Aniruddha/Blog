@@ -30,7 +30,7 @@ export default function Hero() {
     <Box className={classes.hero}>
       <Box>
         {' '}
-        <h2>Tech Blog</h2>
+        <h2>Development Blog</h2>
         <h3>Kickstart your journey as a Web Developer!</h3>
       </Box>
     </Box>

@@ -15,10 +15,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     color: theme.textColor.main,
-    fontSize: '2rem',
+    fontSize: '1.6rem',
     [theme.breakpoints.down('sm')]: {
       height: 300,
-      fontSize: '1.5rem',
+      fontSize: '1.2rem',
     },
   },
 }))
@@ -30,8 +30,8 @@ export default function Hero() {
     <Box className={classes.hero}>
       <Box>
         {' '}
-        <h2>Development Blog</h2>
-        <h3>Kickstart your journey as a Web Developer!</h3>
+        <h1>Development Blog</h1>
+        <h2>Kickstart your journey as a Web Developer!</h2>
       </Box>
     </Box>
   )

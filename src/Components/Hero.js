@@ -31,7 +31,7 @@ export default function Hero() {
       <Box>
         {' '}
         <h1>Development Blog</h1>
-        <h2>Kickstart your journey as a Web Developer!</h2>
+        <h2>Kickstart your journey as a Developer!</h2>
       </Box>
     </Box>
   )

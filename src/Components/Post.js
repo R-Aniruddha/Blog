@@ -19,11 +19,12 @@ const useStyles = makeStyles((theme) => ({
   postContainer: {
     backgroundColor: 'whitesmoke',
     padding: '2rem 3.5rem',
-    width: '60%',
+    width: '50%',
     margin: 'auto',
     marginTop: '1rem',
   },
   blogTitle: {
+    fontSize: '2rem',
     fontWeight: 800,
     paddingBottom: theme.spacing(3),
   },
@@ -32,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: '0.5rem',
   },
   content: {
-    width: '80%',
+    width: '95%',
+    margin: 'auto',
   },
 }))
 
@@ -75,7 +77,7 @@ export default function Post() {
   return (
     <div className={classes.postContainer}>
       <div>
-        <Typography variant='h4' className={classes.blogTitle}>
+        <Typography variant='h1' className={classes.blogTitle}>
           {postData.title}
         </Typography>
       </div>

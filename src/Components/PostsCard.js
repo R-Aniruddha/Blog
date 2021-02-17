@@ -1,11 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import sanityClient from '../client.js'
+import Link from 'next/link'
+import { sanityClient } from '../../lib/sanity.server'
 import imageUrlBuilder from '@sanity/image-url'
-import { makeStyles } from '@material-ui/core/styles'
-import './PostsCard.css'
+import styles from '../../styles/PostsCard.module.css'
 
-import Box from '@material-ui/core/Box'
+//import div from '@material-ui/core/div'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardActions from '@material-ui/core/CardActions'
@@ -20,61 +19,46 @@ function urlFor(source) {
   return builder.image(source)
 }
 
-const useStyles = makeStyles((theme) => ({
-  card: {
-    maxWidth: '100%',
-  },
-  cardActions: {
-    display: 'flex',
-    margin: '0 10px',
-    justifyContent: 'space-between',
-  },
-  author: {
-    display: 'flex',
-  },
-}))
 const PostsCard = ({ post }) => {
-  const classes = useStyles()
-
-  const date = post.publishedAt.toString().substring(0, 10)
-
   return (
-    <Card className={classes.card}>
+    <Card className={styles.card}>
       <CardActionArea>
-        <Link to={'/' + post.slug.current} key={post.slug.current}>
-          <figure className='cardImageContainer'>
-            <CardMedia
-              className='cardImage'
-              image={post.mainImage.asset.url}
-              title={post.title}
-            />
-          </figure>
-          <CardContent>
-            <Typography gutterBottom variant='h5' component='h2'>
-              {post.title}
-            </Typography>
-          </CardContent>
+        <Link href={'/' + post.slug.current} key={post.slug.current}>
+          <div>
+            <figure className={styles.cardImageContainer}>
+              <CardMedia
+                className={styles.cardImage}
+                image={post.mainImage.asset.url}
+                title={post.title}
+              />
+            </figure>
+            <CardContent>
+              <Typography gutterBottom variant='h5' component='h2'>
+                {post.title}
+              </Typography>
+            </CardContent>
+          </div>
         </Link>
       </CardActionArea>
-      <CardActions className={classes.cardActions}>
-        <Box className={classes.author}>
+      <CardActions className={styles.cardActions}>
+        <div className={styles.author}>
           <Avatar
             alt='Author Image'
             src={urlFor(post.authorImage).width(100).url()}
           />
-          <Box ml={2}>
+          <div>
             <Typography variant='subtitle2' component='p'>
               {post.name}
             </Typography>
             <Typography variant='subtitle2' color='textSecondary' component='p'>
-              {date}
+              {post.publishedAt.toString().substring(0, 10)}
             </Typography>
-          </Box>
-        </Box>
+          </div>
+        </div>
         {/* 
-        <Box>
+        <div>
           <BookmarkBorderIcon />
-        </Box>
+        </div>
         */}
       </CardActions>
     </Card>

@@ -1,0 +1,25 @@
+.hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),
+    url('https://res.cloudinary.com/ani10/image/upload/v1613170178/Covers/code-background_me4bhf.webp');
+
+  height: 45vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heroText {
+  color: var(--main-text-color);
+  font-size: 1.6rem;
+}
+
+/*
+[theme.breakpoints.down(sm)]: {
+    height: 300;
+    fontsize: 1.2rem;
+  }
+  */

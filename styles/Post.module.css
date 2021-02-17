@@ -1,0 +1,26 @@
+.postContainer {
+  background-color: whitesmoke;
+  padding: 2rem 3.5rem;
+  width: 50%;
+  margin: auto;
+  margin-top: 1rem;
+}
+
+.blogTitle {
+  font-size: 2rem !important;
+  font-weight: 800 !important;
+  padding-bottom: 2rem;
+}
+
+.author {
+  display: flex;
+  padding-bottom: 0.5rem;
+}
+.postInfo {
+  margin-left: 1rem;
+}
+
+.content {
+  width: 95%;
+  margin: auto;
+}

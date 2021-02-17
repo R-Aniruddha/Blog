@@ -1,0 +1,12 @@
+.appBar {
+  background-color: var(--secondary-color);
+  color: var(--main-text-color);
+}
+.navbarBrand {
+  text-decoration: none;
+  color: var(--main-text-color);
+}
+
+.navbarBrand:hover {
+  cursor: pointer;
+}

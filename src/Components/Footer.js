@@ -1,34 +1,16 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
-import { makeStyles } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
 import Fade from '@material-ui/core/Fade'
-import './Footer.css'
-
-const useStyles = makeStyles((theme) => ({
-  footerContainer: {
-    backgroundColor: theme.palette.primary.dark,
-    color: theme.textColor.main,
-    textAlign: 'center',
-    paddingTop: '1.5rem',
-    paddingBottom: '1rem',
-    marginTop: '1rem',
-    marginBottom: '0',
-  },
-  iconsContainer: {
-    margin: 'auto',
-  },
-}))
+import styles from '../../styles/Footer.module.css'
 
 export default function Footer() {
-  const classes = useStyles()
-
   return (
-    <div className={classes.footerContainer} color='background'>
+    <div className={styles.footerContainer}>
       <Grid container>
-        <Grid item xs={10} sm={6} lg={4} className={classes.iconsContainer}>
+        <Grid item xs={10} sm={6} lg={4} className={styles.iconsContainer}>
           <Grid container>
-            <Grid item xs={2} sm={1} lg={1} className='social-icon'>
+            <Grid item xs={2} sm={1} lg={1} className={styles.socialIcon}>
               <Tooltip
                 TransitionComponent={Fade}
                 TransitionProps={{ timeout: 600 }}
@@ -48,7 +30,7 @@ export default function Footer() {
                 </a>
               </Tooltip>
             </Grid>
-            <Grid item xs={2} sm={1} lg={1} className='social-icon'>
+            <Grid item xs={2} sm={1} lg={1} className={styles.socialIcon}>
               <Tooltip
                 TransitionComponent={Fade}
                 TransitionProps={{ timeout: 600 }}
@@ -68,7 +50,7 @@ export default function Footer() {
                 </a>
               </Tooltip>
             </Grid>
-            <Grid item xs={2} sm={1} lg={1} className='social-icon'>
+            <Grid item xs={2} sm={1} lg={1} className={styles.socialIcon}>
               <Tooltip
                 TransitionComponent={Fade}
                 TransitionProps={{ timeout: 600 }}
@@ -88,7 +70,7 @@ export default function Footer() {
                 </a>
               </Tooltip>
             </Grid>
-            <Grid item xs={2} sm={1} lg={1} className='social-icon'>
+            <Grid item xs={2} sm={1} lg={1} className={styles.socialIcon}>
               <Tooltip
                 TransitionComponent={Fade}
                 TransitionProps={{ timeout: 600 }}
@@ -105,7 +87,7 @@ export default function Footer() {
                 </a>
               </Tooltip>
             </Grid>
-            <Grid item xs={2} sm={1} lg={1} className='social-icon'>
+            <Grid item xs={2} sm={1} lg={1} className={styles.socialIcon}>
               <Tooltip
                 TransitionComponent={Fade}
                 TransitionProps={{ timeout: 600 }}
@@ -125,7 +107,10 @@ export default function Footer() {
           </Grid>
         </Grid>
       </Grid>
-      <p> Copyright {new Date().getFullYear()} ©Aniruddha</p>
+      <p className={styles.text}>
+        {' '}
+        Copyright {new Date().getFullYear()} ©Aniruddha
+      </p>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 .postContainer {
   background-color: whitesmoke;
   padding: 2rem 3.5rem;
-  width: 50%;
+  width: 60%;
   margin: auto;
   margin-top: 1rem;
 }
@@ -15,7 +15,14 @@
 .author {
   display: flex;
   padding-bottom: 0.5rem;
+  align-items: center;
 }
+
+.authorImage {
+  width: 50px !important;
+  height: 50px !important;
+}
+
 .postInfo {
   margin-left: 1rem;
 }

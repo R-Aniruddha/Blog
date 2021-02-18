@@ -1,103 +1,128 @@
-import { useRouter } from 'next/router'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
+import ErrorPage from 'next/error'
 import styles from '../styles/Post.module.css'
 
-import BlockContent from '@sanity/block-content-to-react'
 import Typography from '@material-ui/core/Typography'
 import Avatar from '@material-ui/core/Avatar'
 import { Divider } from '@material-ui/core'
 
-import { sanityClient, getClient } from '../lib/sanity.server'
-import { groq } from 'next-sanity'
+import Layout from '../components/layout'
+import MorePosts from '../components/more-posts'
+//import Header from '../components/header'
+import Container from '@material-ui/core/Container'
+
+import { postQuery, postSlugsQuery } from '../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../lib/sanity'
+import { sanityClient, getClient, overlayDrafts } from '../lib/sanity.server'
+import BlockContent from '@sanity/block-content-to-react'
+import CoverImage from '../components/cover-image'
 
-const postQuery = groq`
-  *[_type == "post" && slug.current == $slug][0] {
-    _id,
-    title,
-    body,
-    mainImage,
-    "name": author->name,
-    "authorImage": author->image,
-    publishedAt,
-    categories[]->{
-      _id,
-      title
-    },
-    "slug": slug.current
-  }`
-
-export default function Post({ data, preview }) {
+export default function Post({ data = {}, preview }) {
   const router = useRouter()
-  if (!router.isFallback && !data.post?.slug) {
+
+  const slug = data?.post?.slug
+  const {
+    data: { post, morePosts },
+  } = usePreviewSubscription(postQuery, {
+    params: { slug },
+    initialData: data,
+    enabled: preview && slug,
+  })
+
+  if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />
   }
 
-  const { data: post } = usePreviewSubscription(postQuery, {
-    params: { slug: data.post.slug },
-    initialData: data,
-    enabled: preview,
-  })
-
   return (
-    <div>
-      <Head>
-        <title>{data.post.title}</title>
-      </Head>
-
-      <div className={styles.postContainer}>
-        <div>
-          <Typography variant='h1' className={styles.blogTitle}>
-            {data.post.title}
-          </Typography>
-        </div>
-        <div>
-          <div className={styles.author}>
-            <Avatar
-              alt='Author Image'
-              src={urlForImage(data.post.authorImage).width(100).url()}
-            />
-            <div ml={3} className={styles.postInfo}>
-              <Typography variant='subtitle2' component='p'>
-                {data.post.name}
-              </Typography>
-              <Typography variant='subtitle2' component='p'>
-                {data.post.publishedAt.toString().substring(0, 10)}
-              </Typography>
-            </div>
-          </div>
-        </div>
-        <Divider />
-        <div className={styles.content}>
-          <BlockContent
-            blocks={data.post.body}
-            projectId={sanityClient.clientConfig.projectId}
-            dataset={sanityClient.clientConfig.dataset}
-          />
-        </div>
-      </div>
-    </div>
+    <Layout preview={preview}>
+      <Container>
+        {router.isFallback ? (
+          <div>Loading…</div>
+        ) : (
+          <>
+            <article>
+              <Head>
+                <title>{post.title}</title>
+                {post.mainImage && (
+                  <meta
+                    key='ogImage'
+                    property='og:image'
+                    content={urlForImage(post.mainImage)
+                      .width(1200)
+                      .height(627)
+                      .fit('crop')
+                      .url()}
+                  />
+                )}
+              </Head>
+              <div className={styles.postContainer}>
+                <div>
+                  <Typography variant='h1' className={styles.blogTitle}>
+                    {post.title}
+                  </Typography>
+                </div>
+                <div>
+                  <div className={styles.author}>
+                    <Avatar
+                      alt='Author Image'
+                      src={urlForImage(post.author.image).width(100).url()}
+                      className={styles.authorImage}
+                    >
+                      A
+                    </Avatar>
+                    <div ml={3} className={styles.postInfo}>
+                      <Typography variant='subtitle2' component='p'>
+                        {post.author.name}
+                      </Typography>
+                      <Typography variant='subtitle2' component='p'>
+                        {post.publishedAt.toString().substring(0, 10)}
+                      </Typography>
+                    </div>
+                  </div>
+                </div>
+                <Divider />
+                <CoverImage
+                  title={post.title}
+                  source={post.mainImage.asset.url}
+                  slug={slug}
+                />
+                <Divider />
+                <div className={styles.content}>
+                  <BlockContent
+                    blocks={post.body}
+                    projectId={sanityClient.clientConfig.projectId}
+                    dataset={sanityClient.clientConfig.dataset}
+                  />
+                </div>
+              </div>
+            </article>
+            {morePosts.length > 0 && <MorePosts posts={morePosts} />}
+          </>
+        )}
+      </Container>
+    </Layout>
   )
 }
 
 export async function getStaticProps({ params, preview = false }) {
-  const post = await getClient(preview).fetch(postQuery, {
+  const { post, morePosts } = await getClient(preview).fetch(postQuery, {
     slug: params.slug,
   })
 
   return {
     props: {
       preview,
-      data: { post },
+      data: {
+        post,
+        morePosts: overlayDrafts(morePosts),
+      },
     },
   }
 }
 
 export async function getStaticPaths() {
-  const paths = await getClient().fetch(
-    groq`*[_type == "post" && defined(slug.current)][].slug.current`
-  )
-
+  const paths = await sanityClient.fetch(postSlugsQuery)
   return {
     paths: paths.map((slug) => ({ params: { slug } })),
     fallback: true,

@@ -2,9 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { sanityClient } from '../lib/sanity.server'
 import imageUrlBuilder from '@sanity/image-url'
-import styles from '../styles/PostsCard.module.css'
 
-//import div from '@material-ui/core/div'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardActions from '@material-ui/core/CardActions'
@@ -14,14 +12,14 @@ import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 //import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
 
+import styles from '../styles/PostsCard.module.css'
+
 const builder = imageUrlBuilder(sanityClient)
 function urlFor(source) {
   return builder.image(source)
 }
 
 const PostsCard = ({ post }) => {
-  //  console.log(post)
-
   return (
     <Card className={styles.card}>
       <CardActionArea>

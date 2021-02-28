@@ -2,12 +2,12 @@ import Head from 'next/head'
 import { indexQuery } from '../lib/queries'
 import { getClient, overlayDrafts } from '../lib/sanity.server'
 
-import Hero from '../components/Hero'
-import PostsCard from '../components/posts-card'
-
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
+
+import Hero from '../components/hero'
+import PostsCard from '../components/posts-card'
 import styles from '../styles/Home.module.css'
 
 export default function Index({ allPosts, preview }) {

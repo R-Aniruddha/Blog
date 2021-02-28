@@ -1,22 +1,20 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
-import styles from '../styles/Post.module.css'
-
-import Typography from '@material-ui/core/Typography'
-import Avatar from '@material-ui/core/Avatar'
-import { Divider } from '@material-ui/core'
-
-import Layout from '../components/layout'
-import MorePosts from '../components/more-posts'
-//import Header from '../components/header'
-import Container from '@material-ui/core/Container'
-
 import { postQuery, postSlugsQuery } from '../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../lib/sanity.server'
 import BlockContent from '@sanity/block-content-to-react'
 import CoverImage from '../components/cover-image'
+
+import Typography from '@material-ui/core/Typography'
+import Avatar from '@material-ui/core/Avatar'
+import { Divider } from '@material-ui/core'
+import Container from '@material-ui/core/Container'
+
+import Layout from '../components/layout'
+import MorePosts from '../components/more-posts'
+import styles from '../styles/Post.module.css'
 
 export default function Post({ data = {}, preview }) {
   const router = useRouter()

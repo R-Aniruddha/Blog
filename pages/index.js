@@ -17,6 +17,10 @@ export default function Index({ allPosts, preview }) {
         <title>Development Blog - Getting started with Web Devlopment</title>
         <link rel='icon' href='/favicon/favicon.ico' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <meta
+          name='Description'
+          content='Development blog for amateur developers that are starting out'
+        />
       </Head>
 
       <div className={styles.container}>

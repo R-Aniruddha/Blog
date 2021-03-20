@@ -1,0 +1,12 @@
+.categoriesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.categoryChip {
+  margin: 0.5rem 0.2rem;
+  border: 1px solid var(--secondary-color) !important;
+  color: var(--secondary-color) !important;
+  font-weight: bold;
+}

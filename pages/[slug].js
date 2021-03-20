@@ -6,6 +6,7 @@ import { urlForImage, usePreviewSubscription } from '../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../lib/sanity.server'
 import BlockContent from '@sanity/block-content-to-react'
 import CoverImage from '../components/cover-image'
+import SocialShare from '../components/social-share'
 
 import Typography from '@material-ui/core/Typography'
 import Avatar from '@material-ui/core/Avatar'
@@ -15,6 +16,7 @@ import Container from '@material-ui/core/Container'
 import Layout from '../components/layout'
 import MorePosts from '../components/more-posts'
 import styles from '../styles/Post.module.css'
+import Categories from '../components/categories'
 
 export default function Post({ data = {}, preview }) {
   const router = useRouter()
@@ -79,6 +81,7 @@ export default function Post({ data = {}, preview }) {
                     </div>
                   </div>
                 </div>
+                <Categories categories={post.categories} />
                 <Divider />
                 <CoverImage
                   title={post.title}
@@ -93,6 +96,8 @@ export default function Post({ data = {}, preview }) {
                     dataset={sanityClient.clientConfig.dataset}
                   />
                 </div>
+                <Divider />
+                <SocialShare url={router.pathname} title={post.title} />
               </div>
             </article>
             {morePosts.length > 0 && <MorePosts posts={morePosts} />}

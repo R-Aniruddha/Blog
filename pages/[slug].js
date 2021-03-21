@@ -17,6 +17,7 @@ import Layout from '../components/layout'
 import MorePosts from '../components/more-posts'
 import styles from '../styles/Post.module.css'
 import Categories from '../components/categories'
+import ScrollToTop from '../components/scroll-top-btn'
 
 function getURL(slug) {
   return 'https://dev-aniruddha.tech/' + slug
@@ -100,10 +101,12 @@ export default function Post({ data = {}, preview }) {
                     dataset={sanityClient.clientConfig.dataset}
                   />
                 </div>
+                <ScrollToTop />
                 <Divider />
                 <SocialShare url={getURL(slug)} title={post.title} />
               </div>
             </article>
+
             {morePosts.length > 0 && <MorePosts posts={morePosts} />}
           </>
         )}

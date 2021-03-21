@@ -18,6 +18,10 @@ import MorePosts from '../components/more-posts'
 import styles from '../styles/Post.module.css'
 import Categories from '../components/categories'
 
+function getURL(slug) {
+  return 'https://dev-aniruddha.tech/' + slug
+}
+
 export default function Post({ data = {}, preview }) {
   const router = useRouter()
 
@@ -97,7 +101,7 @@ export default function Post({ data = {}, preview }) {
                   />
                 </div>
                 <Divider />
-                <SocialShare url={router.pathname} title={post.title} />
+                <SocialShare url={getURL(slug)} title={post.title} />
               </div>
             </article>
             {morePosts.length > 0 && <MorePosts posts={morePosts} />}

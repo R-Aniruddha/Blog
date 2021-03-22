@@ -56,23 +56,15 @@ export default function Post({ data = {}, preview }) {
                 {/* Twitter */}
                 <meta name='twitter:card' content={post.description}></meta>
 
-                <meta
-                  name='twitter:creator'
-                  content={'@R_Aniruddha10'}
-                  key='twhandle'
-                />
+                <meta name='twitter:creator' content={'@R_Aniruddha10'} />
 
                 {/* Open Graph */}
-                <meta property='og:title' content={post.title} key='ogtitle' />
-                <meta
-                  property='og:description'
-                  content={post.description}
-                  key='ogdesc'
-                />
-                <meta property='og:url' content={url} key='ogurl' />
+                <meta property='og:title' content={post.title} />
+                <meta property='og:type' content='article' />
+                <meta property='og:description' content={post.description} />
+                <meta property='og:url' content={url} />
                 {post.mainImage && (
                   <meta
-                    key='ogimage'
                     property='og:image'
                     content={urlForImage(post.mainImage)
                       .width(1200)

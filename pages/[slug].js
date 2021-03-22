@@ -39,9 +39,11 @@ export default function Post({ data = {}, preview }) {
     return <ErrorPage statusCode={404} />
   }
 
+  const url = getURL(slug)
+
   return (
     <Layout preview={preview}>
-      <Container>
+      <Container className={styles.container}>
         {router.isFallback ? (
           <div>Loading…</div>
         ) : (
@@ -49,9 +51,28 @@ export default function Post({ data = {}, preview }) {
             <article>
               <Head>
                 <title>{post.title}</title>
+                <meta name='description' content={post.description} />
+
+                {/* Twitter */}
+                <meta name='twitter:card' content={post.description}></meta>
+
+                <meta
+                  name='twitter:creator'
+                  content={'@R_Aniruddha10'}
+                  key='twhandle'
+                />
+
+                {/* Open Graph */}
+                <meta property='og:title' content={post.title} key='ogtitle' />
+                <meta
+                  property='og:description'
+                  content={post.description}
+                  key='ogdesc'
+                />
+                <meta property='og:url' content={url} key='ogurl' />
                 {post.mainImage && (
                   <meta
-                    key='ogImage'
+                    key='ogimage'
                     property='og:image'
                     content={urlForImage(post.mainImage)
                       .width(1200)
@@ -81,7 +102,7 @@ export default function Post({ data = {}, preview }) {
                         {post.author.name}
                       </Typography>
                       <Typography variant='subtitle2' component='p'>
-                        {post.publishedAt.toString().substring(0, 10)}
+                        {post?.publishedAt?.toString()}
                       </Typography>
                     </div>
                   </div>
@@ -103,7 +124,7 @@ export default function Post({ data = {}, preview }) {
                 </div>
                 <ScrollToTop />
                 <Divider />
-                <SocialShare url={getURL(slug)} title={post.title} />
+                <SocialShare url={url} title={post.title} />
               </div>
             </article>
 

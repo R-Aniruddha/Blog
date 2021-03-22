@@ -1,7 +1,10 @@
+.container {
+  width: 70% !important;
+}
+
 .postContainer {
   background-color: whitesmoke;
-  padding: 2rem 3.5rem;
-  width: 60%;
+  padding: 2rem 4rem;
   margin: auto;
   margin-top: 1rem;
 }

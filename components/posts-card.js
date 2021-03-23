@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { sanityClient } from '../lib/sanity.server'
 import imageUrlBuilder from '@sanity/image-url'
+import { urlForImage } from '../lib/sanity'
 
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
@@ -14,12 +15,8 @@ import Typography from '@material-ui/core/Typography'
 
 import styles from '../styles/PostsCard.module.css'
 
-const builder = imageUrlBuilder(sanityClient)
-function urlFor(source) {
-  return builder.image(source)
-}
-
 const PostsCard = ({ post }) => {
+  console.log(post.thumbnail)
   return (
     <Card className={styles.card}>
       <CardActionArea>
@@ -28,8 +25,8 @@ const PostsCard = ({ post }) => {
             <figure className={styles.cardImageContainer}>
               <CardMedia
                 className={styles.cardImage}
-                image={post.mainImage.asset.url}
-                title={post.title}
+                image={urlForImage(post.thumbnail.image).url()}
+                title={post.thumbnail.alt}
               />
             </figure>
             <CardContent>
@@ -44,7 +41,7 @@ const PostsCard = ({ post }) => {
         <div className={styles.author}>
           <Avatar
             alt='Image of Author'
-            src={urlFor(post.author.image).width(100).url()}
+            src={urlForImage(post.author.image).width(100).url()}
           />
           <div>
             <Typography variant='subtitle2' component='p'>

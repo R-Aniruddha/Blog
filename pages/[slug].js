@@ -41,6 +41,8 @@ export default function Post({ data = {}, preview }) {
 
   const url = getURL(slug)
 
+  //console.log(post.coverImage)
+
   return (
     <Layout preview={preview}>
       <Container className={styles.container}>
@@ -94,16 +96,17 @@ export default function Post({ data = {}, preview }) {
                         {post.author.name}
                       </Typography>
                       <Typography variant='subtitle2' component='p'>
-                        {post?.publishedAt?.toString()}
+                        {post?.publishedAt.toString().substring(0, 10)}
                       </Typography>
                     </div>
                   </div>
                 </div>
                 <Categories categories={post.categories} />
-                <Divider />
+
                 <CoverImage
                   title={post.title}
-                  source={post.mainImage.asset.url}
+                  alt={post.coverImage?.alt}
+                  source={post.coverImage?.image}
                   slug={slug}
                 />
                 <Divider />

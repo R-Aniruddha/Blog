@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { sanityClient } from '../lib/sanity.server'
-import imageUrlBuilder from '@sanity/image-url'
+import { urlForImage } from '../lib/sanity'
 import styles from '../styles/PostPreview.module.css'
 
 //import div from '@material-ui/core/div'
@@ -12,11 +12,6 @@ import CardMedia from '@material-ui/core/CardMedia'
 import CardContent from '@material-ui/core/CardContent'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
-
-const builder = imageUrlBuilder(sanityClient)
-function urlFor(source) {
-  return builder.image(source)
-}
 
 export default function PostPreview({ post }) {
   return (
@@ -30,7 +25,7 @@ export default function PostPreview({ post }) {
                 <figure className={styles.cardImageContainer}>
                   <CardMedia
                     className={styles.cardImage}
-                    image={post.mainImage.asset.url}
+                    image={urlForImage(post.thumbnail.image).url()}
                     title={post.title}
                   />
                 </figure>

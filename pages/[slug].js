@@ -41,8 +41,6 @@ export default function Post({ data = {}, preview }) {
 
   const url = getURL(slug)
 
-  //console.log(post.coverImage)
-
   return (
     <Layout preview={preview}>
       <Container className={styles.container}>

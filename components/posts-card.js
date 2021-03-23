@@ -16,7 +16,6 @@ import Typography from '@material-ui/core/Typography'
 import styles from '../styles/PostsCard.module.css'
 
 const PostsCard = ({ post }) => {
-  console.log(post.thumbnail)
   return (
     <Card className={styles.card}>
       <CardActionArea>

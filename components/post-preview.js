@@ -19,7 +19,7 @@ export default function PostPreview({ post }) {
       <Card className={styles.card}>
         <div>
           <CardActionArea>
-            <Link as={'/' + post.slug} href={'/' + post.slug}>
+            <Link as={'/blog/' + post.slug} href={'/blog/' + post.slug}>
               <div>
                 <figure className={styles.cardImageContainer}>
                   <CardMedia

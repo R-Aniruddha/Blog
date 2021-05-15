@@ -15,8 +15,7 @@ import Typography from '@material-ui/core/Typography'
 
 export default function PostPreview({ post }) {
   return (
-    <Grid item xs={6} sm={4} md={3}>
-      {' '}
+    <Grid item xs={6} sm={4} lg={3}>
       <Card className={styles.card}>
         <div>
           <CardActionArea>

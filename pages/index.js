@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { indexQuery } from '../lib/queries'
-import { getClient, overlayDrafts } from '../lib/sanity.server'
+import { getClient } from '../lib/sanity.server'
 
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
@@ -28,33 +28,11 @@ export default function Index({ allPosts, preview }) {
         <main>
           <Container maxWidth='lg' className={styles.blogsContainer}>
             <Typography variant='h4' className={styles.blogTitle}>
-              Articles
+              Portfolio Homepage
             </Typography>
-            <Grid container spacing={3}>
-              {allPosts.length > 0 &&
-                allPosts.map((post, index) => (
-                  <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    key={index}
-                    className={styles.postGrid}
-                  >
-                    <PostsCard key={index} post={post} />
-                  </Grid>
-                ))}
-            </Grid>
           </Container>
         </main>
       </div>
     </>
   )
-}
-
-export async function getStaticProps({ preview = false }) {
-  const allPosts = overlayDrafts(await getClient(preview).fetch(indexQuery))
-  return {
-    props: { allPosts, preview },
-  }
 }

@@ -19,13 +19,13 @@ const PostsCard = ({ post }) => {
   return (
     <Card className={styles.card}>
       <CardActionArea>
-        <Link as={'/' + post.slug} href={'/' + post.slug}>
+        <Link as={`/blog/${post.slug}`} href={`/blog/${post.slug}`}>
           <div>
             <figure className={styles.cardImageContainer}>
               <CardMedia
                 className={styles.cardImage}
-                image={urlForImage(post.thumbnail.image).url()}
-                title={post.thumbnail.alt}
+                image={urlForImage(post.thumbnail?.image).url()}
+                title={post.thumbnail?.alt}
               />
             </figure>
             <CardContent>
@@ -47,7 +47,7 @@ const PostsCard = ({ post }) => {
               {post.author.name}
             </Typography>
             <Typography variant='subtitle2' color='textSecondary' component='p'>
-              {post.publishedAt.toString().substring(0, 10)}
+              {post?.publishedAt?.toString().substring(0, 10)}
             </Typography>
           </div>
         </div>

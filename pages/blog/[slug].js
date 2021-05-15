@@ -1,39 +1,40 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
-import { postQuery, postSlugsQuery } from '../lib/queries'
-import { urlForImage, usePreviewSubscription } from '../lib/sanity'
-import { sanityClient, getClient, overlayDrafts } from '../lib/sanity.server'
+import {
+  postQuery,
+  postSlugsQuery,
+  getPostAndMorePosts,
+  getAllPostsWithSlug,
+  getAllComments,
+} from '../../lib/queries'
+import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
+import { sanityClient, getClient } from '../../lib/sanity.server'
 import BlockContent from '@sanity/block-content-to-react'
-import CoverImage from '../components/cover-image'
-import SocialShare from '../components/social-share'
+import CoverImage from '../../components/cover-image'
+import SocialShare from '../../components/social-share'
 
 import Typography from '@material-ui/core/Typography'
 import Avatar from '@material-ui/core/Avatar'
 import { Divider } from '@material-ui/core'
 import Container from '@material-ui/core/Container'
 
-import Layout from '../components/layout'
-import MorePosts from '../components/more-posts'
-import styles from '../styles/Post.module.css'
-import Categories from '../components/categories'
-import ScrollToTop from '../components/scroll-top-btn'
+import Layout from '../../components/layout'
+import MorePosts from '../../components/more-posts'
+import styles from '../../styles/Post.module.css'
+import Categories from '../../components/categories'
+import ScrollToTop from '../../components/scroll-top-btn'
+import Comments from '../../components/comments'
+import Form from '../../components/comment-form'
 
 function getURL(slug) {
   return 'https://dev-aniruddha.tech/' + slug
 }
 
-export default function Post({ data = {}, preview }) {
+export default function Post({ post, comments, morePosts, preview }) {
   const router = useRouter()
 
-  const slug = data?.post?.slug
-  const {
-    data: { post, morePosts },
-  } = usePreviewSubscription(postQuery, {
-    params: { slug },
-    initialData: data,
-    enabled: preview && slug,
-  })
+  const slug = post?.slug
 
   if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />
@@ -118,6 +119,8 @@ export default function Post({ data = {}, preview }) {
                 <ScrollToTop />
                 <Divider />
                 <SocialShare url={url} title={post.title} />
+                <Comments comments={post.comments} />
+                <Form _id={post._id} />
               </div>
             </article>
 
@@ -128,27 +131,55 @@ export default function Post({ data = {}, preview }) {
     </Layout>
   )
 }
+async function getComments() {
+  return await getAllComments(preview)
+}
 
 export async function getStaticProps({ params, preview = false }) {
-  const { post, morePosts } = await getClient(preview).fetch(postQuery, {
-    slug: params.slug,
-  })
-
+  const data = await getPostAndMorePosts(params.slug, preview)
   return {
     props: {
       preview,
-      data: {
-        post,
-        morePosts: overlayDrafts(morePosts),
-      },
+      post: data?.post || null,
+      morePosts: data?.morePosts || null,
     },
+    revalidate: 1,
   }
 }
 
 export async function getStaticPaths() {
-  const paths = await sanityClient.fetch(postSlugsQuery)
+  const allPosts = await getAllPostsWithSlug()
   return {
-    paths: paths.map((slug) => ({ params: { slug } })),
+    paths:
+      allPosts?.map((post) => ({
+        params: {
+          slug: post.slug,
+        },
+      })) || [],
     fallback: true,
   }
 }
+
+// export async function getStaticProps({ params, preview = false }) {
+//   const { post, morePosts } = await getClient(preview).fetch(postQuery, {
+//     slug: params.slug,
+//   })
+
+//   return {
+//     props: {
+//       preview,
+//       data: {
+//         post,
+//         morePosts: overlayDrafts(morePosts),
+//       },
+//     },
+//   }
+// }
+
+// export async function getStaticPaths() {
+//   const paths = await sanityClient.fetch(postSlugsQuery)
+//   return {
+//     paths: paths.map((slug) => ({ params: { slug } })),
+//     fallback: true,
+//   }
+// }

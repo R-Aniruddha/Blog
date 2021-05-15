@@ -17,7 +17,7 @@ import styles from '../styles/SocialShare.module.css'
 
 const SocialShare = ({ url, title }) => {
   return (
-    <div>
+    <div className={styles.container}>
       <FacebookShareButton
         className={styles.socialIcon}
         url={url}

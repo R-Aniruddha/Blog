@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'fixed',
     bottom: '50px',
     right: '30px',
+    cursor: 'pointer',
   },
 }))
 
